@@ -1,262 +1,151 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>مولّد كلمات مرور</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title> ملف مشفر a5</title>
   <style>
-    /* تصميم بسيط ومرتب */
     :root{
-      --bg:#0b1220; --card:#0f1724; --accent:#2563eb; --good:#10b981; --warn:#f59e0b; --danger:#ef4444;
-      --muted:#9fb8df;
+      --bg:#020316; --card:#071028; --accent:#0b84ff; --muted:#9aa6b2; --ok:#7fffb2; --err:#ff6b6b;
     }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
     body{
-      margin:0; padding:20px; font-family:system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:linear-gradient(180deg, #051025, #071428); color:#e6eef8; display:flex; justify-content:center;
+      font-family: Inter, "Segoe UI", Tahoma, sans-serif;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(11,132,255,0.05), transparent 8%),
+        linear-gradient(180deg,#000000 0%,var(--bg) 100%);
+      color:#e8eef6; display:flex; align-items:center; justify-content:center; padding:24px;
     }
     .card{
-      width:100%; max-width:760px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:12px; padding:20px; box-shadow:0 10px 30px rgba(2,6,23,0.7);
+      width:420px; max-width:96%; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04); padding:28px; border-radius:12px; box-shadow:0 10px 40px rgba(2,6,23,0.6);
     }
-    h1{ margin:0 0 8px 0; font-size:20px; text-align:center }
-    .row{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
-    label{ font-size:13px; color:var(--muted); display:block; margin-bottom:6px }
-    input[type="number"], select, .chip{ background:transparent; border:1px solid rgba(255,255,255,0.06);
-      color:inherit; padding:8px 10px; border-radius:8px; min-width:120px; }
-    .chip{ display:inline-flex; align-items:center; gap:8px; cursor:pointer; padding:8px 10px; }
-    button{
-      background:var(--accent); color:white; border:0; padding:10px 14px; border-radius:8px; cursor:pointer;
+    header{display:flex; gap:12px; align-items:center; margin-bottom:14px}
+    .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#0ff);
+      display:flex;align-items:center;justify-content:center;font-weight:800;color:#001;border:2px solid rgba(255,255,255,0.04);font-family:monospace}
+    h1{font-size:18px;margin:0}
+    p.lead{margin:6px 0 14px 0;color:var(--muted);font-size:13px}
+    .field{margin-bottom:12px}
+    label.small{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    .row{display:flex;gap:8px}
+    input[type="password"], input[type="text"]{
+      flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
+      background:rgba(255,255,255,0.02);color:inherit;font-size:15px;outline:none;
     }
-    .result{
-      margin-top:10px; background:rgba(255,255,255,0.02); padding:12px; border-radius:10px; display:flex; gap:12px;
-      align-items:center; justify-content:space-between; font-family:monospace;
-    }
-    .small{ font-size:13px; color:var(--muted) }
-    .controls-col{ display:flex; flex-direction:column; gap:8px; min-width:180px; }
-    .switch{ display:flex; align-items:center; gap:8px; }
-    .copy-btn{ background:#06b6d4; color:black; border-radius:8px; padding:8px 12px; font-weight:700 }
-    .sec{ font-size:14px; color:var(--muted) }
-    .strength-bar{ height:10px; border-radius:8px; background:rgba(255,255,255,0.06); overflow:hidden }
-    .strength-fill{ height:100%; width:0%; background:var(--warn); transition:width .25s ease; }
-    .list-area{ margin-top:10px; max-height:220px; overflow:auto; background:rgba(0,0,0,0.2); padding:8px; border-radius:8px; font-family:monospace }
-    footer{ margin-top:12px; text-align:center; font-size:13px; color:var(--muted) }
-    @media(max-width:560px){ .row{ flex-direction:column; align-items:stretch } .controls-col{ min-width:unset } }
+    button{width:100%;padding:11px;border-radius:10px;border:0;background:var(--accent);
+      color:#001228;font-weight:800;font-size:15px;cursor:pointer;margin-top:8px}
+    .msg{height:20px;margin-top:10px;color:var(--err);font-size:13px}
+    .secret{margin-top:14px;padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(127,255,178,0.04), rgba(11,132,255,0.02));display:none;align-items:center;justify-content:space-between;gap:10px}
+    .secret a{color:var(--ok);text-decoration:none;font-weight:700}
+    .meta{font-size:12px;color:var(--muted);margin-top:10px}
+    .controls{display:flex;gap:8px}
+    .tiny{font-size:12px;color:var(--muted)}
+    .copyBtn{padding:6px 8px;border-radius:8px;border:0;background:transparent;color:var(--muted);cursor:pointer}
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>مولّد كلمات مرور آمن</h1>
-    <div class="row">
-      <div class="controls-col">
-        <label>طول كلمة المرور</label>
-        <input id="length" type="number" min="4" max="128" value="16" />
+  <div class="card" role="main" aria-labelledby="title">
+    <header>
+      <div class="logo">a5</div>
+      <div>
+        <h1 id="title">a5m5r</h1>
+        <p class="lead">01010101011</p>
       </div>
+    </header>
 
-      <div class="controls-col">
-        <label>أنواع الحروف</label>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <label class="chip"><input id="lower" type="checkbox" checked /> حروف صغيرة (a-z)</label>
-          <label class="chip"><input id="upper" type="checkbox" checked /> حروف كبيرة (A-Z)</label>
-          <label class="chip"><input id="nums" type="checkbox" checked /> أرقام (0-9)</label>
-          <label class="chip"><input id="syms" type="checkbox" checked /> رموز (!@#...)</label>
-        </div>
-      </div>
+    <!-- ====== هنا تقدر تغيّر الباسورد و الرابط بسهولة ======
+         Edit these values below in the CONFIG block to change password or link.
+         ====================================================== -->
+    <script>
+      // ======= CONFIG: عدل هنا =======
+      const CONFIG = {
+        password: "S3cr3t!a51234",      // <-- اكتب هنا كلمة المرور اللي تحب
+        secretUrl: "https://www.instagram.com/kali_2v?igsh=MjlzeHp4ZG8wN2g3 " // <-- اكتب هنا الرابط السري
+      };
+      // ======= نهاية التعديل =======
+    </script>
 
-      <div class="controls-col">
-        <label>خيارات إضافية</label>
-        <div style="display:flex; gap:8px; flex-direction:column;">
-          <label class="switch"><input id="noAmbiguous" type="checkbox" /> استبعاد أحرف مُشابهة (0 O 1 l)</label>
-          <label class="switch"><input id="avoidRepeat" type="checkbox" /> منع تكرار الحرف المتكرر</label>
-        </div>
-      </div>
-
-      <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
-        <label>كمية كلمات للإنشاء</label>
-        <input id="count" type="number" min="1" max="50" value="1" style="width:96px; text-align:center"/>
-        <button id="genBtn">انشئ</button>
+    <div class="field">
+      <label class="small" for="pw">كلمة المرور</label>
+      <div class="row">
+        <input id="pw" type="password" autocomplete="off" aria-label="كلمة المرور" />
+        <button id="showBtn" class="copyBtn" title="إظهار/إخفاء">عرض</button>
       </div>
     </div>
 
-    <div class="result" id="resultBox">
-      <div style="flex:1;">
-        <div class="small">النتيجة</div>
-        <div id="resultText" style="font-size:15px; margin-top:6px;">اضغط "انشئ" للحصول على كلمة المرور</div>
-        <div style="margin-top:8px;">
-          <div class="small">قوة كلمة المرور</div>
-          <div class="strength-bar" style="margin-top:6px;"><div id="strengthFill" class="strength-fill"></div></div>
-          <div id="entropy" class="sec" style="margin-top:6px;">تقريبى: - bits</div>
-        </div>
-      </div>
+    <button id="go">دخول</button>
+    <div id="msg" class="msg" role="status" aria-live="polite"></div>
 
-      <div style="display:flex; flex-direction:column; gap:8px; margin-left:12px;">
-        <button class="copy-btn" id="copyBtn">نسخ</button>
-        <button id="regen" style="background:#f59e0b; color:black; padding:8px 12px; border-radius:8px;">أعد الإنشاء</button>
-        <button id="downloadBtn" style="background:#10b981; color:black; padding:8px 12px; border-radius:8px;">تحميل TXT</button>
+    <div id="secretBox" class="secret" aria-hidden="true">
+      <div>
+        <div class="tiny">تم التحقق — الرابط السري:</div>
+        <a id="secretLink" href="#" target="_blank" rel="noopener">فتح الرابط</a>
+      </div>
+      <div>
+        <button id="copy" class="copyBtn">نسخ</button>
       </div>
     </div>
 
-    <div class="small" style="margin-top:10px;">قائمة النتائج (لو إخترت أكثر من 1)</div>
-    <div id="listArea" class="list-area">لا توجد نتائج بعد.</div>
-
-    <footer> a5m5r.</footer>
+    <div class="meta">
+     a5 101010
+    </div>
   </div>
 
-  <script>
-    // أحرف
-    const LOWER = 'abcdefghijklmnopqrstuvwxyz';
-    const UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const NUMS  = '0123456789';
-    const SYMS  = '!@#$%^&*()-_=+[]{}<>?,./:;|~';
+<script>
+  // العناصر
+  const pwInput = document.getElementById('pw');
+  const goBtn = document.getElementById('go');
+  const msg = document.getElementById('msg');
+  const secretBox = document.getElementById('secretBox');
+  const secretLink = document.getElementById('secretLink');
+  const showBtn = document.getElementById('showBtn');
+  const copyBtn = document.getElementById('copy');
 
-    const AMBIG = {
-      '0':'O','O':'0','1':'l','l':'1','I':'1','o':'0'
-    };
+  // عرض/إخفاء الباسورد
+  showBtn.addEventListener('click', ()=>{
+    if (pwInput.type === 'password'){ pwInput.type = 'text'; showBtn.textContent = 'إخفاء'; }
+    else { pwInput.type = 'password'; showBtn.textContent = 'عرض'; }
+    pwInput.focus();
+  });
 
-    // عناصر
-    const lengthInput = document.getElementById('length');
-    const lowerCb = document.getElementById('lower');
-    const upperCb = document.getElementById('upper');
-    const numsCb = document.getElementById('nums');
-    const symsCb = document.getElementById('syms');
-    const noAmb = document.getElementById('noAmbiguous');
-    const avoidRepeat = document.getElementById('avoidRepeat');
-    const countInput = document.getElementById('count');
-    const genBtn = document.getElementById('genBtn');
-    const resultText = document.getElementById('resultText');
-    const listArea = document.getElementById('listArea');
-    const copyBtn = document.getElementById('copyBtn');
-    const regenBtn = document.getElementById('regen');
-    const strengthFill = document.getElementById('strengthFill');
-    const entropyEl = document.getElementById('entropy');
-    const downloadBtn = document.getElementById('downloadBtn');
+  // زر الدخول
+  goBtn.addEventListener('click', ()=>{
+    const val = pwInput.value.trim();
+    msg.textContent = '';
+    secretBox.style.display = 'none';
+    secretBox.setAttribute('aria-hidden','true');
 
-    function buildPool(){
-      let pool = '';
-      if(lowerCb.checked) pool += LOWER;
-      if(upperCb.checked) pool += UPPER;
-      if(numsCb.checked) pool += NUMS;
-      if(symsCb.checked) pool += SYMS;
-      if(noAmb.checked){
-        // نزيل الأحرف اللي موجودة في AMBIG
-        pool = pool.split('').filter(ch => !(ch in AMBIG)).join('');
-      }
-      return pool;
+    if (!val){ msg.textContent = 'اكتب كلمة المرور أولا'; return; }
+
+    // المقارنة البسيطة مع الكلمة اللي في CONFIG
+    if (val === CONFIG.password){
+      msg.textContent = '';
+      // عرض الرابط
+      secretLink.href = CONFIG.secretUrl;
+      const displayText = CONFIG.secretUrl.length > 48 ? CONFIG.secretUrl.slice(0,48) + '...' : CONFIG.secretUrl;
+      secretLink.textContent = displayText;
+      secretBox.style.display = 'flex';
+      secretBox.setAttribute('aria-hidden','false');
+      pwInput.value = '';
+    } else {
+      msg.textContent = 'كلمة المرور غير صحيحة';
     }
+  });
 
-    function secureRandomInt(max){
-      // ارجع عدد عشوائي من 0 إلى max-1 باستعمال crypto
-      const arr = new Uint32Array(1);
-      window.crypto.getRandomValues(arr);
-      return arr[0] % max;
-    }
+  // نسخ الرابط
+  copyBtn.addEventListener('click', ()=>{
+    navigator.clipboard.writeText(CONFIG.secretUrl).then(()=>{
+      copyBtn.textContent = 'تم النسخ';
+      setTimeout(()=>copyBtn.textContent = 'نسخ',1200);
+    }).catch(()=>{ copyBtn.textContent = 'فشل'; setTimeout(()=>copyBtn.textContent = 'نسخ',1200); });
+  });
 
-    function generateOne(len, pool){
-      if(pool.length === 0) return '[خطأ: اختر نوع واحد على الأقل]';
-      if(len > pool.length && avoidRepeat.checked){
-        // لو المستخدم طلب منع التكرار وطول أكبر من حجم المجموعة -> نسمح بالتكرار أو نرجّع خطأ
-        // نختار أن نسمح بالتكرار بعد تنبيه صغير عبر إعادة توليد لكن نضمن تنبيه المستخدم
-      }
-      let out = '';
-      const used = new Set();
-      for(let i=0;i<len;i++){
-        let ch;
-        // محاولة توليد بدون تكرار إذا مطلوب
-        if(avoidRepeat.checked && used.size < pool.length){
-          // اختر حرف غير مستخدم
-          let attempts = 0;
-          do {
-            ch = pool[secureRandomInt(pool.length)];
-            attempts++;
-            if(attempts > 50) break;
-          } while(used.has(ch));
-          used.add(ch);
-        } else {
-          ch = pool[secureRandomInt(pool.length)];
-        }
-        out += ch;
-      }
-      return out;
-    }
+  // Enter يضغط دخول
+  pwInput.addEventListener('keydown', (e)=>{ if (e.key === 'Enter') goBtn.click(); });
 
-    function calcEntropy(poolSize, length){
-      // تقدير تقريبي: entropy = log2(poolSize^length) = length * log2(poolSize)
-      if(poolSize <= 0) return 0;
-      return length * Math.log2(poolSize);
-    }
-
-    function updateStrengthUI(entropy){
-      entropy = Math.round(entropy*10)/10;
-      entropyEl.textContent = 'تقدير الأمان: ' + entropy + ' بت (bits)';
-      const percent = Math.min(100, Math.round((entropy/80)*100)); // 80bits يعتبر قوي جدًا
-      strengthFill.style.width = percent + '%';
-      if(entropy < 28){
-        strengthFill.style.background = 'var(--danger)';
-      } else if(entropy < 50){
-        strengthFill.style.background = 'var(--warn)';
-      } else {
-        strengthFill.style.background = 'var(--good)';
-      }
-    }
-
-    function generateAll(){
-      const len = Math.max(4, Math.min(128, Math.floor(Number(lengthInput.value) || 16)));
-      const cnt = Math.max(1, Math.min(50, Math.floor(Number(countInput.value) || 1)));
-      const pool = buildPool();
-      const poolSize = pool.length;
-      const arr = [];
-      for(let i=0;i<cnt;i++){
-        let pw = generateOne(len, pool);
-        // لو منع التكرار وطلب طول أكبر من pool, قد يحصل تكرار — هنا نتحقق ونعدل لو لزم
-        arr.push(pw);
-      }
-      // عرض أول عنصر في الصندوق
-      resultText.textContent = arr[0] || '';
-      listArea.innerHTML = arr.map((p, idx) =><div style="padding:6px 4px; border-bottom:1px dashed rgba(255,255,255,0.03)">${idx+1}. ${p}</div>).join('');
-      updateStrengthUI(calcEntropy(poolSize, len));
-      // لو poolSize أقل من len مع avoidRepeat مطلوب، نعرض تحذير
-      if(avoidRepeat.checked && poolSize < len){
-        listArea.innerHTML += <div style="padding:8px; color:var(--warn)">تحذير: عدد الأحرف المسموح بها (${poolSize}) أصغر من الطول المطلوب (${len}) — تم السماح بالتكرار.</div>;
-      }
-    }
-
-    genBtn.addEventListener('click', generateAll);
-    regenBtn.addEventListener('click', generateAll);
-
-    copyBtn.addEventListener('click', async ()=>{
-      const text = resultText.textContent || '';
-      try{
-        await navigator.clipboard.writeText(text);
-        copyBtn.textContent = 'نسخ ✅';
-        setTimeout(()=>copyBtn.textContent = 'نسخ', 1200);
-      } catch(e){
-        alert('فشل النسخ التلقائي — انسخ يدوياً:\n' + text);
-      }
-    });
-
-    downloadBtn.addEventListener('click', ()=>{
-      const items = Array.from(listArea.querySelectorAll('div')).map(d => d.textContent.replace(/^\d+\.\s*/, '').trim());
-      if(items.length === 0 || items[0] === 'لا توجد نتائج بعد.') {
-        alert('لا توجد نتائج لتحميل — أنشئ كلمات مرور أولاً.');
-        return;
-      }
-      const blob = new Blob([items.join('\n')], {type: 'text/plain;charset=utf-8'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'passwords.txt';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    });
-
-    // اختصار Enter
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter') generateAll();
-    });
-
-    // توليد أولي خفيف
-    //generateAll();
-  </script>
+  // تركيز تلقائي
+  window.addEventListener('load', ()=> pwInput.focus());
+</script>
 </body>
 </html>
