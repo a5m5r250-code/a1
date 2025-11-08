@@ -67,23 +67,23 @@
     </script>
 
     <div class="field">
-      <label class="small" for="pw">كلمة المرور</label>
+      <label class="small" for="pw">-------------PASS -------------</label>
       <div class="row">
         <input id="pw" type="password" autocomplete="off" aria-label="كلمة المرور" />
         <button id="showBtn" class="copyBtn" title="إظهار/إخفاء">عرض</button>
       </div>
     </div>
 
-    <button id="go">دخول</button>
+    <button id="go">((*ENTER*))</button>
     <div id="msg" class="msg" role="status" aria-live="polite"></div>
 
     <div id="secretBox" class="secret" aria-hidden="true">
       <div>
-        <div class="tiny">/../../../../ open /../../../../:</div>
+        <div class="tiny">/../../../../ O P E N /../../../../:</div>
         <a id="secretLink" href="#" target="_blank" rel="noopener">open -1</a>
       </div>
       <div>
-        <button id="copy" class="copyBtn">نسخ</button>
+        <button id="copy" class="copyBtn">COPY</button>
       </div>
     </div>
 
@@ -116,7 +116,7 @@
     secretBox.style.display = 'none';
     secretBox.setAttribute('aria-hidden','true');
 
-    if (!val){ msg.textContent = 'اكتب كلمة المرور أولا'; return; }
+    if (!val){ msg.textContent = ' كلمة المرور '; return; }
 
     // المقارنة البسيطة مع الكلمة اللي في CONFIG
     if (val === CONFIG.password){
@@ -129,14 +129,14 @@
       secretBox.setAttribute('aria-hidden','false');
       pwInput.value = '';
     } else {
-      msg.textContent = 'كلمة المرور غير صحيحة';
+      msg.textContent = 'no :)';
     }
   });
 
   // نسخ الرابط
   copyBtn.addEventListener('click', ()=>{
     navigator.clipboard.writeText(CONFIG.secretUrl).then(()=>{
-      copyBtn.textContent = 'تم النسخ';
+      copyBtn.textContent = 'COPY DONE';
       setTimeout(()=>copyBtn.textContent = 'نسخ',1200);
     }).catch(()=>{ copyBtn.textContent = 'فشل'; setTimeout(()=>copyBtn.textContent = 'نسخ',1200); });
   });
@@ -149,3 +149,4 @@
 </script>
 </body>
 </html>
+
