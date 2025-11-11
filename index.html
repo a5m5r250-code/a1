@@ -1,152 +1,204 @@
-<!doctype html>
-<html lang="ar">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title> *# hashcat #* </title>
-  <style>
-    :root{
-      --bg:#020316; --card:#071028; --accent:#0b84ff; --muted:#9aa6b2; --ok:#7fffb2; --err:#ff6b6b;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0}
-    body{
-      font-family: Inter, "Segoe UI", Tahoma, sans-serif;
-      background:
-        radial-gradient(800px 400px at 10% 10%, rgba(11,132,255,0.05), transparent 8%),
-        linear-gradient(180deg,#000000 0%,var(--bg) 100%);
-      color:#e8eef6; display:flex; align-items:center; justify-content:center; padding:24px;
-    }
-    .card{
-      width:420px; max-width:96%; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.04); padding:28px; border-radius:12px; box-shadow:0 10px 40px rgba(2,6,23,0.6);
-    }
-    header{display:flex; gap:12px; align-items:center; margin-bottom:14px}
-    .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#0ff);
-      display:flex;align-items:center;justify-content:center;font-weight:800;color:#001;border:2px solid rgba(255,255,255,0.04);font-family:monospace}
-    h1{font-size:18px;margin:0}
-    p.lead{margin:6px 0 14px 0;color:var(--muted);font-size:13px}
-    .field{margin-bottom:12px}
-    label.small{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
-    .row{display:flex;gap:8px}
-    input[type="password"], input[type="text"]{
-      flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
-      background:rgba(255,255,255,0.02);color:inherit;font-size:15px;outline:none;
-    }
-    button{width:100%;padding:11px;border-radius:10px;border:0;background:var(--accent);
-      color:#001228;font-weight:800;font-size:15px;cursor:pointer;margin-top:8px}
-    .msg{height:20px;margin-top:10px;color:var(--err);font-size:13px}
-    .secret{margin-top:14px;padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(127,255,178,0.04), rgba(11,132,255,0.02));display:none;align-items:center;justify-content:space-between;gap:10px}
-    .secret a{color:var(--ok);text-decoration:none;font-weight:700}
-    .meta{font-size:12px;color:var(--muted);margin-top:10px}
-    .controls{display:flex;gap:8px}
-    .tiny{font-size:12px;color:var(--muted)}
-    .copyBtn{padding:6px 8px;border-radius:8px;border:0;background:transparent;color:var(--muted);cursor:pointer}
-  </style>
-</head>
-<body>
-  <div class="card" role="main" aria-labelledby="title">
-    <header>
-      <div class="logo">i5</div>
-      <div>
-        <h1 id="title">hashcat</h1>
-        <p class="lead"> hash -1</p>
-      </div>
-    </header>
+!DOCTYPE html
+html lang=ar
+head
+meta charset=UTF-8
+meta name=viewport content=width=device-width,initial-scale=1
+titleبحبك يا زينب ❤️title
+style
+{box-sizingborder-box}
+body{
+  margin0;
+  height100vh;
+  font-familyTajawal,sans-serif;
+  background radial-gradient(circle at top left,#1a0020,#000);
+  overflowhidden;
+  displayflex;
+  justify-contentcenter;
+  align-itemscenter;
+  colorwhite;
+}
 
-    <!-- ====== هنا تقدر تغيّر الباسورد و الرابط بسهولة ======
-         Edit these values below in the CONFIG block to change password or link.
-         ====================================================== -->
-    <script>
-      // ======= CONFIG: عدل هنا =======
-      const CONFIG = {
-        password: "amr12345",      // <-- اكتب هنا كلمة المرور اللي تحب
-        secretUrl: "https://www.instagram.com/kali_2v?igsh=MjlzeHp4ZG8wN2g3 " // <-- اكتب هنا الرابط السري
-      };
-      // ======= نهاية التعديل =======
-    </script>
+ شاشة كلمة المرور 
+.password-screen{
+  text-aligncenter;
+  backgroundrgba(255,255,255,0.06);
+  padding35px 60px;
+  border-radius16px;
+  box-shadow0 0 40px rgba(255,0,100,0.4);
+  backdrop-filterblur(10px);
+  animationfadeIn 1.5s ease;
+}
+.password-screen h2{
+  color#ff85b3;
+  margin-bottom20px;
+}
+.password-input{
+  width80%;
+  padding12px;
+  font-size18px;
+  border-radius10px;
+  border1px solid #ff66aa;
+  backgroundrgba(255,255,255,0.08);
+  colorwhite;
+  text-aligncenter;
+  outlinenone;
+}
+.enter-btn{
+  margin-top15px;
+  padding12px 25px;
+  font-size18px;
+  bordernone;
+  border-radius10px;
+  backgroundlinear-gradient(45deg,#ff3385,#ff0066);
+  colorwhite;
+  cursorpointer;
+  transition.3s;
+}
+.enter-btnhover{
+  transformscale(1.05);
+  backgroundlinear-gradient(45deg,#ff6699,#ff0066);
+}
 
-    <div class="field">
-      <label class="small" for="pw">-------------PASS -------------</label>
-      <div class="row">
-        <input id="pw" type="password" autocomplete="off" aria-label="كلمة المرور" />
-        <button id="showBtn" class="copyBtn" title="إظهار/إخفاء">عرض</button>
-      </div>
-    </div>
+ الصفحة الرئيسية 
+.love-page{
+  displaynone;
+  positionrelative;
+  width100%;
+  height100vh;
+  overflowhidden;
+  backgroundradial-gradient(circle at center,#100010,#000);
+  animationfadeIn 2s ease;
+  flex-directioncolumn;
+  justify-contentcenter;
+  align-itemscenter;
+}
+@keyframes fadeIn{from{opacity0;}to{opacity1;}}
 
-    <button id="go">((*ENTER*))</button>
-    <div id="msg" class="msg" role="status" aria-live="polite"></div>
+ المطر 
+.z-drop{
+  positionabsolute;
+  top-60px;
+  font-weightbold;
+  color#ff0077;
+  opacity.9;
+  text-shadow0 0 10px rgba(255,0,120,0.8),0 0 20px rgba(255,0,120,0.6);
+  animationfall linear infinite;
+}
+@keyframes fall{
+  0%{transformtranslateY(-60px) rotate(0deg);opacity1;}
+  100%{transformtranslateY(110vh) rotate(360deg);opacity0;}
+}
 
-    <div id="secretBox" class="secret" aria-hidden="true">
-      <div>
-        <div class="tiny">/../../../../ O P E N /../../../../:</div>
-        <a id="secretLink" href="#" target="_blank" rel="noopener">open -1</a>
-      </div>
-      <div>
-        <button id="copy" class="copyBtn">COPY</button>
-      </div>
-    </div>
+ النص 
+h1{
+  font-size48px;
+  text-aligncenter;
+  color#ff66aa;
+  text-shadow0 0 15px rgba(255,0,100,0.8),0 0 30px rgba(255,0,100,0.5);
+  margin-bottom40px;
+  animationglowText 3s ease infinite alternate;
+}
+@keyframes glowText{
+  from{text-shadow0 0 10px #ff99cc,0 0 20px #ff66aa;}
+  to{text-shadow0 0 25px #ff66aa,0 0 50px #ff0066;}
+}
 
-    <div class="meta">
-     i5
-    </div>
-  </div>
+ الأزرار 
+.buttons{
+  displayflex;
+  gap20px;
+  flex-wrapwrap;
+  justify-contentcenter;
+}
+.love-btn{
+  padding14px 28px;
+  font-size18px;
+  bordernone;
+  border-radius12px;
+  cursorpointer;
+  backgroundlinear-gradient(45deg,#ff0066,#ff6699);
+  colorwhite;
+  box-shadow0 0 20px rgba(255,0,100,0.4);
+  transition.3s;
+}
+.love-btnhover{
+  transformscale(1.08);
+  box-shadow0 0 30px rgba(255,0,120,0.6);
+}
 
-<script>
-  // العناصر
-  const pwInput = document.getElementById('pw');
-  const goBtn = document.getElementById('go');
-  const msg = document.getElementById('msg');
-  const secretBox = document.getElementById('secretBox');
-  const secretLink = document.getElementById('secretLink');
-  const showBtn = document.getElementById('showBtn');
-  const copyBtn = document.getElementById('copy');
+ الرسائل 
+.message{
+  margin-top30px;
+  font-size24px;
+  color#ff80b3;
+  font-weightbold;
+  text-shadow0 0 10px rgba(255,0,150,0.7);
+  opacity0;
+  transformtranslateY(20px);
+  transitionopacity .8s,transform .8s;
+}
+.message.show{
+  opacity1;
+  transformtranslateY(0);
+}
+style
+head
+body
 
-  // عرض/إخفاء الباسورد
-  showBtn.addEventListener('click', ()=>{
-    if (pwInput.type === 'password'){ pwInput.type = 'text'; showBtn.textContent = 'إخفاء'; }
-    else { pwInput.type = 'password'; showBtn.textContent = 'عرض'; }
-    pwInput.focus();
-  });
+!-- شاشة كلمة السر --
+div class=password-screen id=passwordScreen
+  h2🌹 أدخل كلمة السر للدخول 🌹h2
+  input type=password id=password class=password-input placeholder=••••••••
+  br
+  button class=enter-btn onclick=checkPassword()دخولbutton
+  p id=error style=color#ff8fa3;displaynone;margin-top10px;❌ كلمة السر غير صحيحة ❌p
+div
 
-  // زر الدخول
-  goBtn.addEventListener('click', ()=>{
-    const val = pwInput.value.trim();
-    msg.textContent = '';
-    secretBox.style.display = 'none';
-    secretBox.setAttribute('aria-hidden','true');
+!-- الصفحة الرئيسية --
+div class=love-page id=lovePage
+  h1بحبك يا زينب ❤️h1
+  div class=buttons
+    button class=love-btn onclick=showMessage('msg1')افتحى يا بعد روحى 💋button
+    button class=love-btn onclick=showMessage('msg2')ل مراتى حبيبتى 💖button
+  div
 
-    if (!val){ msg.textContent = ' كلمة المرور '; return; }
+  div id=msg1 class=messageاحبك مزتى العراقيه الى تخبل 💞div
+  div id=msg2 class=messageالحياه بدونك مش حياه يا اختى حبيبتى ❤️div
+div
 
-    // المقارنة البسيطة مع الكلمة اللي في CONFIG
-    if (val === CONFIG.password){
-      msg.textContent = '';
-      // عرض الرابط
-      secretLink.href = CONFIG.secretUrl;
-      const displayText = CONFIG.secretUrl.length > 48 ? CONFIG.secretUrl.slice(0,48) + '...' : CONFIG.secretUrl;
-      secretLink.textContent = displayText;
-      secretBox.style.display = 'flex';
-      secretBox.setAttribute('aria-hidden','false');
-      pwInput.value = '';
-    } else {
-      msg.textContent = 'no :)';
-    }
-  });
+script
+function checkPassword(){
+  const input=document.getElementById(password).value.trim();
+  if(input===20241118){
+    document.getElementById(passwordScreen).style.display=none;
+    document.getElementById(lovePage).style.display=flex;
+    startZRaining();
+  }else{
+    const err=document.getElementById(error);
+    err.style.display=block;
+    setTimeout(()=err.style.display=none,2000);
+  }
+}
 
-  // نسخ الرابط
-  copyBtn.addEventListener('click', ()=>{
-    navigator.clipboard.writeText(CONFIG.secretUrl).then(()=>{
-      copyBtn.textContent = 'COPY DONE';
-      setTimeout(()=>copyBtn.textContent = 'نسخ',1200);
-    }).catch(()=>{ copyBtn.textContent = 'فشل'; setTimeout(()=>copyBtn.textContent = 'نسخ',1200); });
-  });
+function startZRaining(){
+  setInterval(()={
+    const z=document.createElement(div);
+    z.classList.add(z-drop);
+    z.textContent=Z;
+    z.style.left=Math.random()100+vw;
+    z.style.fontSize=14+Math.random()30+px;
+    z.style.animationDuration=4+Math.random()5+s;
+    document.body.appendChild(z);
+    setTimeout(()=z.remove(),9000);
+  },150);
+}
 
-  // Enter يضغط دخول
-  pwInput.addEventListener('keydown', (e)=>{ if (e.key === 'Enter') goBtn.click(); });
+function showMessage(id){
+  document.querySelectorAll('.message').forEach(m=m.classList.remove('show'));
+  const msg=document.getElementById(id);
+  msg.classList.add('show');
+}
+script
 
-  // تركيز تلقائي
-  window.addEventListener('load', ()=> pwInput.focus());
-</script>
-</body>
-</html>
-
+body
+html
