@@ -1,204 +1,205 @@
-!DOCTYPE html
-html lang=ar
-head
-meta charset=UTF-8
-meta name=viewport content=width=device-width,initial-scale=1
-titleبحبك يا زينب ❤️title
-style
-{box-sizingborder-box}
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>بحبك يا زينب ❤️</title>
+<style>
+*{box-sizing:border-box}
 body{
-  margin0;
-  height100vh;
-  font-familyTajawal,sans-serif;
-  background radial-gradient(circle at top left,#1a0020,#000);
-  overflowhidden;
-  displayflex;
-  justify-contentcenter;
-  align-itemscenter;
-  colorwhite;
+  margin:0;
+  height:100vh;
+  font-family:"Tajawal",sans-serif;
+  background: radial-gradient(circle at top left,#1a0020,#000);
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
 }
 
- شاشة كلمة المرور 
+/* شاشة كلمة المرور */
 .password-screen{
-  text-aligncenter;
-  backgroundrgba(255,255,255,0.06);
-  padding35px 60px;
-  border-radius16px;
-  box-shadow0 0 40px rgba(255,0,100,0.4);
-  backdrop-filterblur(10px);
-  animationfadeIn 1.5s ease;
+  text-align:center;
+  background:rgba(255,255,255,0.06);
+  padding:35px 60px;
+  border-radius:16px;
+  box-shadow:0 0 40px rgba(255,0,100,0.4);
+  backdrop-filter:blur(10px);
+  animation:fadeIn 1.5s ease;
 }
 .password-screen h2{
-  color#ff85b3;
-  margin-bottom20px;
+  color:#ff85b3;
+  margin-bottom:20px;
 }
 .password-input{
-  width80%;
-  padding12px;
-  font-size18px;
-  border-radius10px;
-  border1px solid #ff66aa;
-  backgroundrgba(255,255,255,0.08);
-  colorwhite;
-  text-aligncenter;
-  outlinenone;
+  width:80%;
+  padding:12px;
+  font-size:18px;
+  border-radius:10px;
+  border:1px solid #ff66aa;
+  background:rgba(255,255,255,0.08);
+  color:white;
+  text-align:center;
+  outline:none;
 }
 .enter-btn{
-  margin-top15px;
-  padding12px 25px;
-  font-size18px;
-  bordernone;
-  border-radius10px;
-  backgroundlinear-gradient(45deg,#ff3385,#ff0066);
-  colorwhite;
-  cursorpointer;
-  transition.3s;
+  margin-top:15px;
+  padding:12px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(45deg,#ff3385,#ff0066);
+  color:white;
+  cursor:pointer;
+  transition:.3s;
 }
-.enter-btnhover{
-  transformscale(1.05);
-  backgroundlinear-gradient(45deg,#ff6699,#ff0066);
+.enter-btn:hover{
+  transform:scale(1.05);
+  background:linear-gradient(45deg,#ff6699,#ff0066);
 }
 
- الصفحة الرئيسية 
+/* الصفحة الرئيسية */
 .love-page{
-  displaynone;
-  positionrelative;
-  width100%;
-  height100vh;
-  overflowhidden;
-  backgroundradial-gradient(circle at center,#100010,#000);
-  animationfadeIn 2s ease;
-  flex-directioncolumn;
-  justify-contentcenter;
-  align-itemscenter;
+  display:none;
+  position:relative;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  background:radial-gradient(circle at center,#100010,#000);
+  animation:fadeIn 2s ease;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
-@keyframes fadeIn{from{opacity0;}to{opacity1;}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
- المطر 
+/* المطر */
 .z-drop{
-  positionabsolute;
-  top-60px;
-  font-weightbold;
-  color#ff0077;
-  opacity.9;
-  text-shadow0 0 10px rgba(255,0,120,0.8),0 0 20px rgba(255,0,120,0.6);
-  animationfall linear infinite;
+  position:absolute;
+  top:-60px;
+  font-weight:bold;
+  color:#ff0077;
+  opacity:.9;
+  text-shadow:0 0 10px rgba(255,0,120,0.8),0 0 20px rgba(255,0,120,0.6);
+  animation:fall linear infinite;
 }
 @keyframes fall{
-  0%{transformtranslateY(-60px) rotate(0deg);opacity1;}
-  100%{transformtranslateY(110vh) rotate(360deg);opacity0;}
+  0%{transform:translateY(-60px) rotate(0deg);opacity:1;}
+  100%{transform:translateY(110vh) rotate(360deg);opacity:0;}
 }
 
- النص 
+/* النص */
 h1{
-  font-size48px;
-  text-aligncenter;
-  color#ff66aa;
-  text-shadow0 0 15px rgba(255,0,100,0.8),0 0 30px rgba(255,0,100,0.5);
-  margin-bottom40px;
-  animationglowText 3s ease infinite alternate;
+  font-size:48px;
+  text-align:center;
+  color:#ff66aa;
+  text-shadow:0 0 15px rgba(255,0,100,0.8),0 0 30px rgba(255,0,100,0.5);
+  margin-bottom:40px;
+  animation:glowText 3s ease infinite alternate;
 }
 @keyframes glowText{
-  from{text-shadow0 0 10px #ff99cc,0 0 20px #ff66aa;}
-  to{text-shadow0 0 25px #ff66aa,0 0 50px #ff0066;}
+  from{text-shadow:0 0 10px #ff99cc,0 0 20px #ff66aa;}
+  to{text-shadow:0 0 25px #ff66aa,0 0 50px #ff0066;}
 }
 
- الأزرار 
+/* الأزرار */
 .buttons{
-  displayflex;
-  gap20px;
-  flex-wrapwrap;
-  justify-contentcenter;
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
 }
 .love-btn{
-  padding14px 28px;
-  font-size18px;
-  bordernone;
-  border-radius12px;
-  cursorpointer;
-  backgroundlinear-gradient(45deg,#ff0066,#ff6699);
-  colorwhite;
-  box-shadow0 0 20px rgba(255,0,100,0.4);
-  transition.3s;
+  padding:14px 28px;
+  font-size:18px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  background:linear-gradient(45deg,#ff0066,#ff6699);
+  color:white;
+  box-shadow:0 0 20px rgba(255,0,100,0.4);
+  transition:.3s;
 }
-.love-btnhover{
-  transformscale(1.08);
-  box-shadow0 0 30px rgba(255,0,120,0.6);
+.love-btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 30px rgba(255,0,120,0.6);
 }
 
- الرسائل 
+/* الرسائل */
 .message{
-  margin-top30px;
-  font-size24px;
-  color#ff80b3;
-  font-weightbold;
-  text-shadow0 0 10px rgba(255,0,150,0.7);
-  opacity0;
-  transformtranslateY(20px);
-  transitionopacity .8s,transform .8s;
+  margin-top:30px;
+  font-size:24px;
+  color:#ff80b3;
+  font-weight:bold;
+  text-shadow:0 0 10px rgba(255,0,150,0.7);
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .8s,transform .8s;
 }
 .message.show{
-  opacity1;
-  transformtranslateY(0);
+  opacity:1;
+  transform:translateY(0);
 }
-style
-head
-body
+</style>
+</head>
+<body>
 
-!-- شاشة كلمة السر --
-div class=password-screen id=passwordScreen
-  h2🌹 أدخل كلمة السر للدخول 🌹h2
-  input type=password id=password class=password-input placeholder=••••••••
-  br
-  button class=enter-btn onclick=checkPassword()دخولbutton
-  p id=error style=color#ff8fa3;displaynone;margin-top10px;❌ كلمة السر غير صحيحة ❌p
-div
+<!-- شاشة كلمة السر -->
+<div class="password-screen" id="passwordScreen">
+  <h2>🌹 أدخل كلمة السر للدخول 🌹</h2>
+  <input type="password" id="password" class="password-input" placeholder="••••••••">
+  <br>
+  <button class="enter-btn" onclick="checkPassword()">دخول</button>
+  <p id="error" style="color:#ff8fa3;display:none;margin-top:10px;">❌ كلمة السر غير صحيحة ❌</p>
+</div>
 
-!-- الصفحة الرئيسية --
-div class=love-page id=lovePage
-  h1بحبك يا زينب ❤️h1
-  div class=buttons
-    button class=love-btn onclick=showMessage('msg1')افتحى يا بعد روحى 💋button
-    button class=love-btn onclick=showMessage('msg2')ل مراتى حبيبتى 💖button
-  div
+<!-- الصفحة الرئيسية -->
+<div class="love-page" id="lovePage">
+  <h1>بحبك يا زينب ❤️</h1>
+  <div class="buttons">
+    <button class="love-btn" onclick="showMessage('msg1')">افتحى يا بعد روحى 💋</button>
+    <button class="love-btn" onclick="showMessage('msg2')">ل مراتى حبيبتى 💖</button>
+  </div>
 
-  div id=msg1 class=messageاحبك مزتى العراقيه الى تخبل 💞div
-  div id=msg2 class=messageالحياه بدونك مش حياه يا اختى حبيبتى ❤️div
-div
+  <div id="msg1" class="message">احبك مزتى العراقيه الى تخبل 💞</div>
+  <div id="msg2" class="message">الحياه بدونك مش حياه يا اختى حبيبتى ❤️</div>
+</div>
 
-script
+<script>
 function checkPassword(){
-  const input=document.getElementById(password).value.trim();
-  if(input===20241118){
-    document.getElementById(passwordScreen).style.display=none;
-    document.getElementById(lovePage).style.display=flex;
+  const input=document.getElementById("password").value.trim();
+  if(input==="20241118"){
+    document.getElementById("passwordScreen").style.display="none";
+    document.getElementById("lovePage").style.display="flex";
     startZRaining();
   }else{
-    const err=document.getElementById(error);
-    err.style.display=block;
-    setTimeout(()=err.style.display=none,2000);
+    const err=document.getElementById("error");
+    err.style.display="block";
+    setTimeout(()=>err.style.display="none",2000);
   }
 }
 
 function startZRaining(){
-  setInterval(()={
-    const z=document.createElement(div);
-    z.classList.add(z-drop);
-    z.textContent=Z;
-    z.style.left=Math.random()100+vw;
-    z.style.fontSize=14+Math.random()30+px;
-    z.style.animationDuration=4+Math.random()5+s;
+  setInterval(()=>{
+    const z=document.createElement("div");
+    z.classList.add("z-drop");
+    z.textContent="Z";
+    z.style.left=Math.random()*100+"vw";
+    z.style.fontSize=14+Math.random()*30+"px";
+    z.style.animationDuration=4+Math.random()*5+"s";
     document.body.appendChild(z);
-    setTimeout(()=z.remove(),9000);
+    setTimeout(()=>z.remove(),9000);
   },150);
 }
 
 function showMessage(id){
-  document.querySelectorAll('.message').forEach(m=m.classList.remove('show'));
+  document.querySelectorAll('.message').forEach(m=>m.classList.remove('show'));
   const msg=document.getElementById(id);
   msg.classList.add('show');
 }
-script
+</script>
 
-body
-html
+</body>
+</html>
