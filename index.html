@@ -75,6 +75,7 @@ body{
 }
 
 
+
 /* النص */
 h1{
   font-size:48px;
@@ -166,18 +167,7 @@ function checkPassword(){
   }
 }
 
-function startZRaining(){
-  setInterval(()=>{
-    const z=document.createElement("div");
-    z.classList.add("z-drop");
-    z.textContent="Z";
-    z.style.left=Math.random()*100+"vw";
-    z.style.fontSize=14+Math.random()*30+"px";
-    z.style.animationDuration=4+Math.random()*5+"s";
-    document.body.appendChild(z);
-    setTimeout(()=>z.remove(),9000);
-  },150);
-}
+
 
 function showMessage(id){
   document.querySelectorAll('.message').forEach(m=>m.classList.remove('show'));
@@ -188,5 +178,3 @@ function showMessage(id){
 
 </body>
 </html>
-
-
