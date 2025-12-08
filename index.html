@@ -5,250 +5,187 @@
   <title>A M R | Text → QR</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- مكتبة توليد QR -->
+  <!-- مكتبة QR -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
     * {
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      margin:0; padding:0; box-sizing:border-box;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
     }
 
     body {
-      margin: 0;
-      padding: 16px;
-      background: #05060a;
-      color: #f5f5f5;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background:#050517;
+      color:#f9fafb;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:18px;
     }
 
     .shell {
-      width: 100%;
-      max-width: 520px;
+      width:100%;
+      max-width:520px;
     }
 
     .brand {
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 13px;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: #a5b4fc;
+      text-align:center;
+      font-size:14px;
+      letter-spacing:.4em;
+      color:#c7d2fe;
+      margin-bottom:12px;
     }
 
-    .container {
-      width: 100%;
-      background: radial-gradient(circle at top, #111827 0%, #020617 55%, #000 100%);
-      border-radius: 22px;
-      padding: 20px 18px 18px;
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.03),
-        0 35px 90px rgba(0, 0, 0, 0.85);
+    .card {
+      background:rgba(10,10,26,.95);
+      border-radius:20px;
+      padding:20px 16px 18px;
+      border:1px solid rgba(167,139,250,.6);
+      box-shadow:0 0 26px rgba(88,80,236,.45);
     }
 
     .title {
-      text-align: center;
-      margin: 0 0 6px;
-      font-size: 22px;
+      text-align:center;
+      font-size:20px;
+      margin-bottom:4px;
     }
 
     .subtitle {
-      text-align: center;
-      margin: 0 0 18px;
-      font-size: 12px;
-      color: #9ca3af;
+      text-align:center;
+      font-size:11px;
+      color:#a1a1aa;
+      margin-bottom:18px;
+      line-height:1.7;
     }
 
     .label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 6px;
-      color: #d1d5db;
+      font-size:12px;
+      color:#e5e7eb;
+      margin-bottom:6px;
+      display:block;
     }
 
     textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 255, 0.28);
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
-      font-size: 13px;
-      min-height: 90px;
-      resize: vertical;
-      outline: none;
-      transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      width:100%;
+      border-radius:14px;
+      background:#020617;
+      border:1px solid #4b5563;
+      color:#e5e7eb;
+      padding:12px;
+      font-size:13px;
+      min-height:120px;
+      outline:none;
+      resize:vertical;
+      transition:.18s;
+      margin-bottom:16px; /* مسافة بين الكتابة والأزرار */
     }
 
     textarea:focus {
-      border-color: rgba(129, 140, 248, 0.95);
-      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.6);
-      background: rgba(15, 23, 42, 0.98);
+      border-color:#8b5cf6;
+      box-shadow:0 0 0 1px rgba(129,140,248,.6);
+      background:#030712;
     }
 
-    .help-text {
-      font-size: 11px;
-      color: #9ca3af;
-      margin-top: 6px;
+    .help {
+      font-size:11px;
+      color:#9ca3af;
+      margin-top:-8px;
+      margin-bottom:18px;
     }
 
     .actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-      flex-wrap: wrap;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:18px;
     }
 
     .btn {
-      border: none;
-      outline: none;
-      cursor: pointer;
-      border-radius: 999px;
-      padding: 9px 16px;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.25s ease;
-      white-space: nowrap;
-      flex: 1;
+      flex:1 1 48%;
+      border:none;
+      border-radius:999px;
+      padding:9px 10px;
+      font-size:11px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      white-space:nowrap;
+      transition:.18s;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: #f9fafb;
-      box-shadow:
-        0 10px 24px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(248, 250, 252, 0.1);
+    /* كل الأزراااار بنفسجية بإضاءة هادئة */
+    .btn-purple {
+      background:linear-gradient(135deg,#6366f1,#a855f7);
+      color:#f9fafb;
+      box-shadow:0 0 14px rgba(129,140,248,.35); /* إضاءة هادئة */
     }
 
-    .btn-secondary {
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      flex: 0 0 auto;
+    .btn-purple:hover {
+      transform:translateY(-1px);
+      box-shadow:0 0 18px rgba(129,140,248,.45);
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 14px 30px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(248, 250, 252, 0.16);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-      box-shadow: none;
-    }
-
-    .qr-preview {
-      margin-top: 18px;
-      border-radius: 18px;
-      background: radial-gradient(circle at top, #020617 0%, #000 60%);
-      padding: 16px;
-      border: 1px solid rgba(148, 163, 255, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 190px;
-      position: relative;
-    }
-
-    .qr-preview::before {
-      content: "";
-      position: absolute;
-      inset: 12px;
-      border-radius: 14px;
-      border: 1px dashed rgba(148, 163, 255, 0.4);
-      opacity: 0.5;
-      pointer-events: none;
+    .qr-box {
+      margin-top:6px;
+      border-radius:16px;
+      border:1px dashed rgba(148,163,184,.7);
+      background:#020617;
+      min-height:190px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      box-shadow:0 0 18px rgba(15,23,42,.85);
+      text-align:center;
     }
 
     .qr-placeholder {
-      text-align: center;
-      font-size: 12px;
-      color: #6b7280;
+      font-size:11px;
+      color:#6b7280;
     }
 
-    .qr-placeholder span {
-      display: block;
-      margin-top: 4px;
-      font-size: 11px;
-      opacity: 0.9;
+    .download-link {
+      display:block;
+      margin:14px auto 0;
+      padding:8px 20px;
+      border-radius:999px;
+      border:1px solid rgba(167,139,250,.9);
+      background:radial-gradient(circle at top,#312e81,#020617 60%);
+      color:#e5e7eb;
+      text-decoration:none;
+      font-size:10px;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      text-align:center;
+      opacity:0;
+      pointer-events:none;
+      transition:.18s;
+      box-shadow:0 0 14px rgba(129,140,248,.35); /* إضاءة بنفسجية هادئة */
     }
 
-    .qr-wrapper {
-      position: relative;
-      z-index: 1;
-    }
-
-    .download-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-top: 14px;
-    }
-
-    .download-btn {
-      text-decoration: none;
-      border-radius: 999px;
-      padding: 9px 20px;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(129, 140, 248, 0.9);
-      background: rgba(15, 23, 42, 0.95);
-      color: #e5e7eb;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(4px);
-      transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .download-btn.visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .download-btn:hover {
-      box-shadow:
-        0 16px 36px rgba(15, 23, 42, 1),
-        0 0 0 1px rgba(248, 250, 252, 0.12);
+    .download-link.visible {
+      opacity:1;
+      pointer-events:auto;
+      transform:translateY(-1px);
     }
 
     .footer {
-      text-align: center;
-      font-size: 11px;
-      color: #6b7280;
-      margin-top: 10px;
+      text-align:center;
+      font-size:11px;
+      color:#6b7280;
+      margin-top:10px;
     }
 
-    @media (max-width: 480px) {
-      .container {
-        padding: 18px 14px 16px;
-        border-radius: 18px;
-      }
-      .title {
-        font-size: 20px;
-      }
-      .actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .btn-secondary {
-        width: 100%;
-      }
+    @media (max-width:480px) {
+      body { padding:14px 10px; }
+      .card { padding:18px 12px 16px; border-radius:18px; }
+      .btn { flex:1 1 100%; }
+      .shell { max-width:100%; }
     }
   </style>
 </head>
@@ -256,102 +193,92 @@
   <div class="shell">
     <div class="brand">A&nbsp;M&nbsp;R</div>
 
-    <div class="container">
+    <div class="card">
       <h1 class="title">Text → QR</h1>
       <p class="subtitle">
-        اكتب أي نص أو رابط، ثم حوّله إلى رمز QR جاهز للاستخدام والتحميل.
       </p>
 
-      <label for="textInput" class="label">النص / الرابط:</label>
-      <textarea
-        id="textInput"
-        placeholder="اكتب رقم جوال او رابط موقع او نص..."
-      ></textarea>
-      <div class="help-text">
-        يفضّل استخدام نصوص وروابط قصيرة لسهولة قراءة رمز الـQR على جميع الأجهزة.
-      </div>
+      <label class="label" for="qrText">النص / الرابط</label>
+      <textarea id="qrText" placeholder="    اكتب هنا..."></textarea>
+
+      <div class="help">
+QR A5      </div>
 
       <div class="actions">
-        <button id="generateTextQR" class="btn btn-primary">
-          توليد QR
-        </button>
-        <button id="clearTextQR" class="btn btn-secondary">
-          مسح
-        </button>
+        <button id="btnQrGenerate" class="btn btn-purple">CREATE QR</button>
+        <button id="btnQrClear"    class="btn btn-purple">CLEAR</button>
       </div>
 
-      <div class="qr-preview" id="textQrPreview">
+      <div id="qrPreview" class="qr-box">
         <div class="qr-placeholder">
-          لا يوجد رمز QR بعد
-          <span>اكتب نصاً ثم اضغط "توليد QR"</span>
+           <br/>
+          <span style="font-size:10px;">   XXXXXX CREATE QR</span>
         </div>
       </div>
 
-      <div class="download-wrapper">
-        <a id="downloadBtn" class="download-btn" download="amr-qr.png">
-          تحميل رمز QR
-        </a>
-      </div>
+      <a id="qrDownload" class="download-link" download="amr-qr.png">
+        DOWNLOAD
+      </a>
     </div>
 
-    <div class="footer">
-        A M R / A5   </div>
+    <div class="footer">A M R / A5</div>
   </div>
 
   <script>
-    const textInput = document.getElementById("textInput");
-    const generateTextQRBtn = document.getElementById("generateTextQR");
-    const clearTextQRBtn = document.getElementById("clearTextQR");
-    const textQrPreview = document.getElementById("textQrPreview");
-    const downloadBtn = document.getElementById("downloadBtn");
+    const qrText        = document.getElementById("qrText");
+    const btnQrGenerate = document.getElementById("btnQrGenerate");
+    const btnQrClear    = document.getElementById("btnQrClear");
+    const qrPreview     = document.getElementById("qrPreview");
+    const qrDownload    = document.getElementById("qrDownload");
 
-    let textQrInstance = null;
+    function resetQr() {
+      qrPreview.innerHTML = `
+        <div class="qr-placeholder">
+          <br/>
+          <span style="font-size:10px;">     X</span>
+        </div>
+      `;
+      qrDownload.classList.remove("visible");
+      qrDownload.removeAttribute("href");
+    }
 
-    function createQr(targetElement, data, size = 220) {
-      targetElement.innerHTML = "";
+    function createQr(data) {
+      qrPreview.innerHTML = "";
       const wrapper = document.createElement("div");
-      wrapper.className = "qr-wrapper";
-      targetElement.appendChild(wrapper);
+      qrPreview.appendChild(wrapper);
 
-      const qr = new QRCode(wrapper, {
+      new QRCode(wrapper, {
         text: data,
-        width: size,
-        height: size,
+        width: 220,
+        height: 220,
         correctLevel: QRCode.CorrectLevel.H,
       });
 
-      // بعد ما تتولّد الصورة، نستخدمها في زر التحميل
       setTimeout(() => {
         const img = wrapper.querySelector("img");
         if (img && img.src) {
-          downloadBtn.href = img.src;
-          downloadBtn.classList.add("visible");
+          qrDownload.href = img.src;
+          qrDownload.classList.add("visible");
         }
       }, 200);
-
-      return qr;
     }
 
-    generateTextQRBtn.addEventListener("click", () => {
-      const text = textInput.value.trim();
-      if (!text) {
-        alert("من فضلك اكتب نصاً أو رابطاً أولاً.");
+    btnQrGenerate.addEventListener("click", () => {
+      const txt = qrText.value.trim();
+      if (!txt) {
+        alert("  اكتب نصاً أو رابطاً أولاً.");
         return;
       }
-      textQrInstance = createQr(textQrPreview, text, 230);
+      createQr(txt);
     });
 
-    clearTextQRBtn.addEventListener("click", () => {
-      textInput.value = "";
-      textQrPreview.innerHTML = `
-        <div class="qr-placeholder">
-          لا يوجد رمز QR بعد
-          <span>اكتب نصاً ثم اضغط "توليد QR"</span>
-        </div>
-      `;
-      downloadBtn.classList.remove("visible");
-      downloadBtn.removeAttribute("href");
+    btnQrClear.addEventListener("click", () => {
+      qrText.value = "";
+      resetQr();
     });
+
+    // أول تحميل
+    resetQr();
   </script>
 </body>
 </html>
