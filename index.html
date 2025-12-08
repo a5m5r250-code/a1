@@ -1,181 +1,357 @@
-
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ILOVE YOU ZOZO</title>
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  height:100vh;
-  font-family:"Tajawal",sans-serif;
-  background: radial-gradient(circle at top left,#1a0020,#000);
-  overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:white;
-}
+  <meta charset="UTF-8" />
+  <title>A M R | Text → QR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-/* شاشة كلمة المرور */
-.password-screen{
-  text-align:center;
-  background:rgba(255,255,255,0.06);
-  padding:35px 60px;
-  border-radius:16px;
-  box-shadow:0 0 40px rgba(255,0,100,0.4);
-  backdrop-filter:blur(10px);
-  animation:fadeIn 1.5s ease;
-}
-.password-screen h2{
-  color:#ff85b3;
-  margin-bottom:20px;
-}
-.password-input{
-  width:80%;
-  padding:12px;
-  font-size:18px;
-  border-radius:10px;
-  border:1px solid #ff66aa;
-  background:rgba(255,255,255,0.08);
-  color:white;
-  text-align:center;
-  outline:none;
-}
-.enter-btn{
-  margin-top:15px;
-  padding:12px 25px;
-  font-size:18px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(45deg,#ff3385,#ff0066);
-  color:white;
-  cursor:pointer;
-  transition:.3s;
-}
-.enter-btn:hover{
-  transform:scale(1.05);
-  background:linear-gradient(45deg,#ff6699,#ff0066);
-}
+  <!-- مكتبة توليد QR -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-/* الصفحة الرئيسية */
-.love-page{
-  display:none;
-  position:relative;
-  width:100%;
-  height:100vh;
-  overflow:hidden;
-  background:radial-gradient(circle at center,#100010,#000);
-  animation:fadeIn 2s ease;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
 
+    body {
+      margin: 0;
+      padding: 16px;
+      background: #05060a;
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
+    .shell {
+      width: 100%;
+      max-width: 520px;
+    }
 
-/* النص */
-h1{
-  font-size:48px;
-  text-align:center;
-  color:#ff66aa;
-  text-shadow:0 0 15px rgba(255,0,100,0.8),0 0 30px rgba(255,0,100,0.5);
-  margin-bottom:40px;
-  animation:glowText 3s ease infinite alternate;
-}
-@keyframes glowText{
-  from{text-shadow:0 0 10px #ff99cc,0 0 20px #ff66aa;}
-  to{text-shadow:0 0 25px #ff66aa,0 0 50px #ff0066;}
-}
+    .brand {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 13px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+    }
 
-/* الأزرار */
-.buttons{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.love-btn{
-  padding:14px 28px;
-  font-size:18px;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  background:linear-gradient(45deg,#ff0066,#ff6699);
-  color:white;
-  box-shadow:0 0 20px rgba(255,0,100,0.4);
-  transition:.3s;
-}
-.love-btn:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 30px rgba(255,0,120,0.6);
-}
+    .container {
+      width: 100%;
+      background: radial-gradient(circle at top, #111827 0%, #020617 55%, #000 100%);
+      border-radius: 22px;
+      padding: 20px 18px 18px;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03),
+        0 35px 90px rgba(0, 0, 0, 0.85);
+    }
 
-/* الرسائل */
-.message{
-  margin-top:30px;
-  font-size:24px;
-  color:#ff80b3;
-  font-weight:bold;
-  text-shadow:0 0 10px rgba(255,0,150,0.7);
-  opacity:0;
-  transform:translateY(20px);
-  transition:opacity .8s,transform .8s;
-}
-.message.show{
-  opacity:1;
-  transform:translateY(0);
-}
-</style>
+    .title {
+      text-align: center;
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin: 0 0 18px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #d1d5db;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 255, 0.28);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 13px;
+      min-height: 90px;
+      resize: vertical;
+      outline: none;
+      transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    textarea:focus {
+      border-color: rgba(129, 140, 248, 0.95);
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.6);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .help-text {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 6px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.25s ease;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #f9fafb;
+      box-shadow:
+        0 10px 24px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(248, 250, 252, 0.1);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      flex: 0 0 auto;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 14px 30px rgba(15, 23, 42, 0.95),
+        0 0 0 1px rgba(248, 250, 252, 0.16);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .qr-preview {
+      margin-top: 18px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top, #020617 0%, #000 60%);
+      padding: 16px;
+      border: 1px solid rgba(148, 163, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 190px;
+      position: relative;
+    }
+
+    .qr-preview::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(148, 163, 255, 0.4);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .qr-placeholder {
+      text-align: center;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .qr-placeholder span {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    .qr-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    .download-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .download-btn {
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 9px 20px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(129, 140, 248, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(4px);
+      transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .download-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .download-btn:hover {
+      box-shadow:
+        0 16px 36px rgba(15, 23, 42, 1),
+        0 0 0 1px rgba(248, 250, 252, 0.12);
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 18px 14px 16px;
+        border-radius: 18px;
+      }
+      .title {
+        font-size: 20px;
+      }
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-secondary {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="shell">
+    <div class="brand">A&nbsp;M&nbsp;R</div>
 
-<!-- شاشة كلمة السر -->
-<div class="password-screen" id="passwordScreen">
-  <h2>افتحى يا بعد روحى </h2>
-  <input type="password" id="password" class="password-input" placeholder="••••••••">
-  <br>
-  <button class="enter-btn" onclick="checkPassword()">دخول</button>
-  <p id="error" style="color:#ff8fa3;display:none;margin-top:10px;">❌ كلمة السر غير صحيحة ❌</p>
-</div>
+    <div class="container">
+      <h1 class="title">Text → QR</h1>
+      <p class="subtitle">
+        اكتب أي نص أو رابط، ثم حوّله إلى رمز QR جاهز للاستخدام والتحميل.
+      </p>
 
-<!-- الصفحة الرئيسية -->
-<div class="love-page" id="lovePage">
-  <h1>بحبك يا زينب ❤️</h1>
-  <div class="buttons">
-    <button class="love-btn" onclick="showMessage('msg1')"> رساله اليوم لمراتى</button>
-    <button class="love-btn" onclick="showMessage('msg2')">ل مراتى حبيبتى 💖</button>
+      <label for="textInput" class="label">النص / الرابط:</label>
+      <textarea
+        id="textInput"
+        placeholder="اكتب رقم جوال او رابط موقع او نص..."
+      ></textarea>
+      <div class="help-text">
+        يفضّل استخدام نصوص وروابط قصيرة لسهولة قراءة رمز الـQR على جميع الأجهزة.
+      </div>
+
+      <div class="actions">
+        <button id="generateTextQR" class="btn btn-primary">
+          توليد QR
+        </button>
+        <button id="clearTextQR" class="btn btn-secondary">
+          مسح
+        </button>
+      </div>
+
+      <div class="qr-preview" id="textQrPreview">
+        <div class="qr-placeholder">
+          لا يوجد رمز QR بعد
+          <span>اكتب نصاً ثم اضغط "توليد QR"</span>
+        </div>
+      </div>
+
+      <div class="download-wrapper">
+        <a id="downloadBtn" class="download-btn" download="amr-qr.png">
+          تحميل رمز QR
+        </a>
+      </div>
+    </div>
+
+    <div class="footer">
+        A M R / A5   </div>
   </div>
 
-  <div id="msg1" class="message"> عيونى ما تشوف غير زينب</div>
-  <div id="msg2" class="message"> طمنى قلبك انا بعشقك يمراتى يحبيبتى</div>
-</div>
+  <script>
+    const textInput = document.getElementById("textInput");
+    const generateTextQRBtn = document.getElementById("generateTextQR");
+    const clearTextQRBtn = document.getElementById("clearTextQR");
+    const textQrPreview = document.getElementById("textQrPreview");
+    const downloadBtn = document.getElementById("downloadBtn");
 
-<script>
-function checkPassword(){
-  const input=document.getElementById("password").value.trim();
-  if(input==="20241118"){
-    document.getElementById("passwordScreen").style.display="none";
-    document.getElementById("lovePage").style.display="flex";
-    startZRaining();
-  }else{
-    const err=document.getElementById("error");
-    err.style.display="block";
-    setTimeout(()=>err.style.display="none",2000);
-  }
-}
+    let textQrInstance = null;
 
+    function createQr(targetElement, data, size = 220) {
+      targetElement.innerHTML = "";
+      const wrapper = document.createElement("div");
+      wrapper.className = "qr-wrapper";
+      targetElement.appendChild(wrapper);
 
+      const qr = new QRCode(wrapper, {
+        text: data,
+        width: size,
+        height: size,
+        correctLevel: QRCode.CorrectLevel.H,
+      });
 
-function showMessage(id){
-  document.querySelectorAll('.message').forEach(m=>m.classList.remove('show'));
-  const msg=document.getElementById(id);
-  msg.classList.add('show');
-}
-</script>
+      // بعد ما تتولّد الصورة، نستخدمها في زر التحميل
+      setTimeout(() => {
+        const img = wrapper.querySelector("img");
+        if (img && img.src) {
+          downloadBtn.href = img.src;
+          downloadBtn.classList.add("visible");
+        }
+      }, 200);
 
+      return qr;
+    }
+
+    generateTextQRBtn.addEventListener("click", () => {
+      const text = textInput.value.trim();
+      if (!text) {
+        alert("من فضلك اكتب نصاً أو رابطاً أولاً.");
+        return;
+      }
+      textQrInstance = createQr(textQrPreview, text, 230);
+    });
+
+    clearTextQRBtn.addEventListener("click", () => {
+      textInput.value = "";
+      textQrPreview.innerHTML = `
+        <div class="qr-placeholder">
+          لا يوجد رمز QR بعد
+          <span>اكتب نصاً ثم اضغط "توليد QR"</span>
+        </div>
+      `;
+      downloadBtn.classList.remove("visible");
+      downloadBtn.removeAttribute("href");
+    });
+  </script>
 </body>
 </html>
-
